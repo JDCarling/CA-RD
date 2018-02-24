@@ -1,0 +1,83 @@
+// For full API documentation, including code examples, visit http://wix.to/94BuAAs
+
+$w.onReady(function () {
+	//TODO: write your page related code here...
+
+});
+
+import {sendEmail, sendEmailWithRecipient} from 'backend/email';
+
+$w.onReady(function () {
+  $w("#dataset1").onAfterSave(sendFormData);
+});
+
+function sendFormData() {
+  const subject = `CA-RD Project Contact Form Confirmed for ${$w("#input004").value}`;
+  const body = `CA-RD Project Contact Form for: ${$w("#input004").value}
+  
+    \rContact Information
+    \rProject name: ${$w("#input001").value}
+    \rProject address: ${$w("#input002").value}
+    \rCompany name: ${$w("#input003").value}
+    \rContact name: ${$w("#input004").value}
+    \rContact email: ${$w("#input005").value}
+    \rPhone number: ${$w("#input006").value}
+    \rContact address: ${$w("#input007").value}
+    \rHow did you hear about us: ${$w("#input008").value}
+
+    \rPrevious projects
+    \rHave you built before?: ${$w("#dropdown15").value}
+    \rWhat did you like about building?: ${$w("#input27").value}
+    \rWhat did you dislike about building?: ${$w("#input28").value}
+    \rIf applicable describe a previous project you did & who provided the service for you?: ${$w("#textBox2").value}
+    
+    \rYour current project
+    \rTell us about the project you want to start?: ${$w("#textBox3").value}
+    \rApart from you who else needs to be included in an initial Needs and Options review process?: ${$w("#input37").value}
+    \rWhen do you want to start?: ${$w("#dropdown22").value}
+    \rWhen do you want to be complete?: ${$w("#dropdown23").value}
+    \rWhat type of build will this be?: ${$w("#dropdown25").value}
+    \rPlease select a project category?: ${$w("#dropdown24").value}
+
+    \rHelping you overcome obstacles    
+    \rDo you have a budget?: ${$w("#dropdown21").value}
+    \rWhat is the driving need for your project?: ${$w("#dropdown20").value}
+    \rOnce you have a clear picture of your project within budget, is there any obstacle you need to overcome to get there?: ${$w("#textBox4").value} 
+    \rHow big is this obstacle to you?: ${$w("#dropdown26").value}
+    \rIs your site selected?: ${$w("#dropdown27").value}
+    \rDo you have rights to build on your site?: ${$w("#dropdown28").value}
+    
+    \rMoving forward          
+    \rHow clear are you on exactly what you need?: ${$w("#dropdown34").value}
+    \rHow aware are you of all the various options your site will accommodate?: ${$w("#dropdown31").value}
+    \rHow confident are you that you are aware of all the legal requirements?: ${$w("#dropdown33").value}
+    \rHow aware are you of the process to get the project completed on time and on budget?: ${$w("#dropdown32").value}
+    \rHow confident are you that your budget will achieve your needs?: ${$w("#dropdown30").value}
+    \rAre you wanting to complete this project in stages?: ${$w("#dropdown29").value}
+    \rHow important is this project to you?: ${$w("#dropdown35").value}
+    
+    \rFinishing up
+    \rIs there anything else you want us to know?: ${$w("#textBox5").value}
+    \rWhat are the consequences of not doing this project to you: ${$w("#textBox6").value}
+    
+    \rThank you for taking the time to go through this exercise.
+    \rThis will benefit you on your personal journey to bring your project to fruition.
+    \rAdditionally it helps us to know a bit more about you and how to best provide services for you.
+ 
+    \rThe first step we together take is a needs and options review. 
+    \rIt is the best step you can take to ensure your project starts off on the right foot. 
+    \rThis will also fill in any information you needed clarification on in the exercise you just completed.
+ 
+    \rBest regards,
+ 
+    \rJD Carling
+    \rCA-RD
+    \r407 474 8989`;
+  const recipient = $w("#input005").value;
+ 
+  sendEmailWithRecipient(subject, body, recipient)
+    .then(response => console.log(response)); 
+    
+  sendEmail(subject, body)
+    .then(response => console.log(response));
+}
